@@ -19,14 +19,16 @@ def mine(addr):
         "rewardaddress": address
       }
       output = requests.post(f'{node}/miner/mine', json=data)
-  
-      threads = 1 # dont change it will only make mining go slower. 
-  
-      for _ in range(int(treads)):
-        minerthread = threading.Thread(target=mine, args=(mineraddress))
-        minerthread.start()
+      if not output.text:
+        print('Error Obtaining Output.')
+      else:
+        print(output.text)
     except Exception as e:
       print(e)
       pass
   
+ threads = 1 # dont change it will only make mining go slower. 
+ for _ in range(int(threads)):
+     minerthread = threading.Thread(target=mine, args=(mineraddress))
+     minerthread.start()
  ## done i guess lolz ##
